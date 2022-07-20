@@ -5,17 +5,26 @@
   "description": "Confeccion de segunda entrega de proyecto final",
   "main": "main.js",
   "scripts": {
-    "arch": "set VARENT=arch&& node main.js",
-    "mem": "set VARENT=mem&& node main.js",
-    "mongo": "set VARENT=mongo&& node main.js",
-    "fba": "set VARENT=firebase&& node main.js",
+    "start": "set VARENT=mongo&& node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pablo Mari",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "firebase-admin": "^10.2.0",
-    "mongoose": "^6.3.4"
+    "handlebars": "^4.7.7",
+    "mongoose": "^6.3.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.7.7",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "twilio": "^3.79.0"
   }
 }

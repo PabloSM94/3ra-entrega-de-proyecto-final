@@ -1,7 +1,7 @@
 import express, { query } from 'express'
 import fs from 'fs'
 import config from '../config.js'
-import {isObjEmpty} from '../../public/js/clasesProdyCarr.js'
+import {isObjEmpty} from '../scripts/clasesProdyCarr.js'
 
 import admin from "firebase-admin"
 
@@ -40,16 +40,16 @@ class ContenedorFirebase {
             }          
             }
         if (flag == 1){
-            console.log(JSON.stringify(ObjetoBuscado))
+            //console.log(JSON.stringify(ObjetoBuscado))
             return JSON.stringify(ObjetoBuscado)
         }
         else{
-            console.log(`No existe el id especificado en la base de datos`) 
+            //console.log(`No existe el id especificado en la base de datos`) 
             }
             return `No existe el id especificado en la base de datos`
         }
         else{
-            console.log(JSON.stringify(this.datos))
+            //console.log(JSON.stringify(this.datos))
             return JSON.stringify(this.datos)
         }    
     }
@@ -138,11 +138,11 @@ class ContenedorFirebase {
         }
         if (flag == 1){
             const objetosdeObjetoBuscado = objetoBuscado[objetos]
-            console.log(JSON.stringify(objetosdeObjetoBuscado))
+            //console.log(JSON.stringify(objetosdeObjetoBuscado))
             return (JSON.stringify(objetosdeObjetoBuscado))
         }
         else{
-            console.log("no existe el objeto1")
+            //console.log("no existe el objeto1")
             return (JSON.stringify({ "status": `error`,"msg": `no existe el objeto1`}))
             }
 
@@ -164,18 +164,18 @@ class ContenedorFirebase {
         const doc = await this.query.doc(`${path}`)
         const doc2 = await doc.get()
         const item = await doc2.data()
-        console.log(item[objetos])
+        //console.log(item[objetos])
 
 
         const filtro3 = item[objetos].filter(elem => elem.id !== parseInt(idobjetos))
         const validacion = item[objetos].filter(elem=> elem.id == parseInt(idobjetos))
         item[objetos] = filtro3
             if (isObjEmpty(validacion)){
-                console.log("no existe id elemento secundario")
+                //console.log("no existe id elemento secundario")
                 return JSON.stringify("no existe id elemento secundario")
             }else{
                 await doc.update(item)
-                console.log("borrado exitoso",item)
+                //console.log("borrado exitoso",item)
                 return JSON.stringify("borrado exitoso")
             }       
         

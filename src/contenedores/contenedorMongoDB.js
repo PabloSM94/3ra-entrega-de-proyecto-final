@@ -2,7 +2,7 @@ import express from 'express'
 import {promises as fs} from 'fs'
 import mongoose from 'mongoose'
 import config from '../config.js'
-import {isObjEmpty} from '../../public/js/clasesProdyCarr.js'
+import {isObjEmpty} from '../scripts/clasesProdyCarr.js'
 
 await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options)
 
@@ -29,16 +29,16 @@ class ContenedorMongo {
             }          
             }
         if (flag == 1){
-            console.log(JSON.stringify(ObjetoBuscado))
+            //console.log(JSON.stringify(ObjetoBuscado))
             return JSON.stringify(ObjetoBuscado)
         }
         else{
-            console.log(`No existe el id especificado en la base de datos`) 
+            //console.log(`No existe el id especificado en la base de datos`) 
             }
             return `No existe el id especificado en la base de datos`
         }
         else{
-            console.log(JSON.stringify(this.datos))
+            //console.log(JSON.stringify(this.datos))
             return JSON.stringify(this.datos)
         }    
     }
@@ -67,7 +67,7 @@ class ContenedorMongo {
 
     async guardarenObj(objeto){
         const identificador = objeto.id
-        console.log(objeto)
+        //console.log(objeto)
         await this.coleccion.replaceOne({id: identificador},objeto)
     }
 
@@ -103,11 +103,11 @@ class ContenedorMongo {
         }
         if (flag == 1){
             const objetosdeObjetoBuscado = objetoBuscado[objetos]
-            console.log(JSON.stringify(objetosdeObjetoBuscado))
+            //console.log(JSON.stringify(objetosdeObjetoBuscado))
             return (JSON.stringify(objetosdeObjetoBuscado))
         }
         else{
-            console.log("no existe el objeto1")
+            //console.log("no existe el objeto1")
             return (JSON.stringify({ "status": `error`,"msg": `no existe el objeto1`}))
             }
 
@@ -116,18 +116,18 @@ class ContenedorMongo {
     async borrarObjetoN(idobjeto1,objetos,idobjetos){
         const document = await this.coleccion.find({id: idobjeto1})
         if(isObjEmpty(document)){
-            console.log("no existe id de elemento principal")
+            //console.log("no existe id de elemento principal")
         }else{
             let filtro2 = document.find(elem => elem)
             const filtro3 = filtro2[objetos].filter(elem => elem.id !== parseInt(idobjetos))
             const validacion = filtro2[objetos].filter(elem=> elem.id == parseInt(idobjetos))
             filtro2[objetos] = filtro3
             if (isObjEmpty(validacion)){
-                console.log("no existe id elemento secundario")
+                //console.log("no existe id elemento secundario")
                 return JSON.stringify("no existe id elemento secundario")
             }else{
                 await this.coleccion.replaceOne({id: idobjeto1},filtro2)
-                console.log("borrado exitoso")
+                //console.log("borrado exitoso")
                 return JSON.stringify("borrado exitoso")
             }   
         }

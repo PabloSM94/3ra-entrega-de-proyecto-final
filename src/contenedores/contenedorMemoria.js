@@ -1,5 +1,5 @@
 import express from 'express'
-import {isObjEmpty}  from '../../public/js/clasesProdyCarr.js'
+import {isObjEmpty}  from '../scripts/clasesProdyCarr.js'
 
 class ContenedorMemoria {
     constructor(){
@@ -16,11 +16,11 @@ class ContenedorMemoria {
         if(id){
             let dato = this.datos.find(elem => elem.id == id)
             if (dato){
-            console.log(JSON.stringify(`dato`,dato))
+            //console.log(JSON.stringify(`dato`,dato))
             return JSON.stringify(dato)
             }
             else{
-            console.log(`No existe el id especificado en la base de datos`)
+            //console.log(`No existe el id especificado en la base de datos`)
             return JSON.stringify([]) 
             }
             return `No existe el id especificado en la base de datos`
@@ -53,9 +53,9 @@ class ContenedorMemoria {
 
     async guardarenObj(objeto){
         const array = this.datos
-        console.log("array",array)
+        //console.log("array",array)
         const nuevoArray = array.filter(elem => parseInt(elem.id) !== parseInt(objeto.id))
-        console.log("arrayfiltrado",nuevoArray)
+        //console.log("arrayfiltrado",nuevoArray)
         nuevoArray.push(objeto)
         return this.datos = nuevoArray
     }
@@ -92,11 +92,11 @@ class ContenedorMemoria {
         }
         if (flag == 1){
             const objetosdeObjetoBuscado = objetoBuscado[objetos]
-            console.log(JSON.stringify(objetosdeObjetoBuscado))
+            //console.log(JSON.stringify(objetosdeObjetoBuscado))
             return (JSON.stringify(objetosdeObjetoBuscado))
         }
         else{
-            console.log("no existe el objeto1")
+            //console.log("no existe el objeto1")
             return (JSON.stringify({ "status": `error`,"msg": `no existe el objeto1`}))
             }
 
@@ -124,14 +124,14 @@ class ContenedorMemoria {
                     return (JSON.stringify({"msg":"Borrado exitoso"}))
                 }
                 else{
-                    console.log("no existe id en el subgrupo")
+                    //console.log("no existe id en el subgrupo")
                     return (JSON.stringify({"msg":"no existe id en el subgrupo"}))
                 }       
 
 
             }
             else{
-                console.log("no existe id en el grupo principal")
+                //console.log("no existe id en el grupo principal")
                 return (JSON.stringify({"msg":"no existe id en el grupo principal"}))
             } 
         }  

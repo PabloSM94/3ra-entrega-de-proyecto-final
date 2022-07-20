@@ -1,6 +1,6 @@
 import express from 'express'
 import {promises as fs} from 'fs'
-import {isObjEmpty}  from '../../public/js/clasesProdyCarr.js'
+import {isObjEmpty}  from '../scripts/clasesProdyCarr.js'
 
 class ContenedorArchivo {
     constructor(ruta){
@@ -26,16 +26,16 @@ class ContenedorArchivo {
             }          
             }
         if (flag == 1){
-            console.log(JSON.stringify(ObjetoBuscado))
+            //console.log(JSON.stringify(ObjetoBuscado))
             return JSON.stringify(ObjetoBuscado)
         }
         else{
-            console.log(`No existe el id especificado en la base de datos`) 
+            //console.log(`No existe el id especificado en la base de datos`) 
             }
             return `No existe el id especificado en la base de datos`
         }
         else{
-            console.log(JSON.stringify(this.datos))
+            //console.log(JSON.stringify(this.datos))
             return JSON.stringify(this.datos)
         }    
     }
@@ -67,7 +67,7 @@ class ContenedorArchivo {
     async guardarenObj(objeto){
         await this.obtenerObjetos()
         const array = this.datos
-        console.log("array",array)
+        //console.log("array",array)
         const nuevoArray = array.filter(elem => parseInt(elem.id) !== parseInt(objeto.id))
         nuevoArray.push(objeto)
         await fs.writeFile(this.ruta, JSON.stringify(nuevoArray),"utf-8")
@@ -107,11 +107,11 @@ class ContenedorArchivo {
         }
         if (flag == 1){
             const objetosdeObjetoBuscado = objetoBuscado[objetos]
-            console.log(JSON.stringify(objetosdeObjetoBuscado))
+            //console.log(JSON.stringify(objetosdeObjetoBuscado))
             return (JSON.stringify(objetosdeObjetoBuscado))
         }
         else{
-            console.log("no existe el objeto1")
+            //console.log("no existe el objeto1")
             return (JSON.stringify({ "status": `error`,"msg": `no existe el objeto1`}))
             }
 
@@ -138,18 +138,18 @@ class ContenedorArchivo {
                 if (flagP ==1){
                     objetoBuscado[objetos] = objetoBuscado[objetos].filter((elem)=> elem.id !== parseInt(idobjetos))
                     await fs.writeFile(this.ruta, JSON.stringify(this.datos),"utf-8")
-                    console.log("borrado exitoso")
+                    //console.log("borrado exitoso")
                     return (JSON.stringify("Borrado exitoso"))
                 }
                 else{
-                    console.log("no existe id en el subgrupo")
+                    //console.log("no existe id en el subgrupo")
                     return (JSON.stringify("no existe id en el subgrupo"))
                 }       
 
 
             }
             else{
-                console.log("no existe id en el grupo principal")
+                //console.log("no existe id en el grupo principal")
                 return (JSON.stringify({"msg":"no existe id en el grupo principal"}))
             } 
         }  

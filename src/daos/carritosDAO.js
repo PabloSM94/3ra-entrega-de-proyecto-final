@@ -7,7 +7,7 @@ switch (process.env.VARENT){
         break
     case 'arch':
         const {default: CarritoDAOArchivo} = await import ('./carritos/carritosDAOArchivo.js')
-        console.log(CarritoDAOArchivo)
+        //console.log(CarritoDAOArchivo)
         contenedorCarrito = new CarritoDAOArchivo('./public')
         break
     case 'mongo':

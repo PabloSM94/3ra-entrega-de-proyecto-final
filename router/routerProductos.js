@@ -6,16 +6,17 @@ import fs from 'fs'
 
 const app = express()
 const routerP = Router()
-import {carrito} from '../public/js/clasesProdyCarr.js'
-import {producto} from '../public/js/clasesProdyCarr.js'
-import { isObjEmpty } from '../public/js/clasesProdyCarr.js'
+import {carrito} from '../src/scripts/clasesProdyCarr.js'
+import {producto} from '../src/scripts/clasesProdyCarr.js'
+import { isObjEmpty } from '../src/scripts/clasesProdyCarr.js'
 import contenedorProducto from '../src/daos/productosDAO.js'
 
+const admin = false
 
 // GET: '/:id?' - Me permite listar todos los productos disponibles ó un producto por su id (disponible para usuarios y administradores)
 routerP.get('/productos/:id?', (req, res) => {
     const {params} = req
-    console.log(params.id)
+    //console.log(params.id)
     if(params.id){
         contenedorProducto.obtenerObjetosxId(params.id)
         .then(resultado => res.json(resultado))
@@ -30,9 +31,8 @@ routerP.get('/productos/:id?', (req, res) => {
 
 routerP.post('/productos/', (req, res) => {
     //permiso de administrador 
-    const admin = true
     if (admin){
-        console.log("modo administrador")
+        //console.log("modo administrador")
         const {body} = req
         
         const nuevoProd = new producto (body.nombre,body.descripcion,body.codigo,body.thumbnail,body.precio,body.stock)
@@ -52,8 +52,7 @@ routerP.post('/productos/', (req, res) => {
 // PUT: '/:id' - Actualiza un producto por su id (disponible para administradores)
 
 routerP.put('/productos/:id', (req, res) => {
-    //permiso de administrador 
-    const admin=true
+    //permiso de administrador
     if (admin){
         const {params} = req
         const {body} = req
@@ -93,7 +92,7 @@ routerP.put('/productos/:id', (req, res) => {
         })
         
 
-        console.log("login ok")
+        //console.log("login ok")
     }
     else{
         res.send(`Debes logearte como administrador`)
@@ -103,9 +102,8 @@ routerP.put('/productos/:id', (req, res) => {
 // DELETE: '/:id' - Borra un producto por su id (disponible para administradores)
 routerP.delete('/productos/:id', (req, res) => {
     //permiso de administrador 
-    const admin=true
     if (admin){
-        console.log("login ok")
+        //console.log("login ok")
         const {params} = req
         contenedorProducto.borrar(params.id)
         .then (result => res.json(result))

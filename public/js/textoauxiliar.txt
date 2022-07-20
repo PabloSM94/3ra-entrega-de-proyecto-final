@@ -1,0 +1,17 @@
+   <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="${usuario.foto}" class="card-img-top" alt="Avatar-">
+                    <div class="card-body">
+                    <h5 class="card-title">${usuario.nombre}</h5>
+                    <p class="card-text">${usuario.username}</p>
+                    <p class="card-text">${usuario.tel}</p>
+                    </div>
+                    <div class="card-footer">
+                    <button id="botonAvatar" class="btn btn-success">Cambiar foto</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="navbar-brand" href="#"></a>
