@@ -41,7 +41,7 @@ app.use('/api', routerP)
 app.use('/api', routerLog)
 app.use('/api', routerPedidos)
 
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, ()=>{
     console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
 })
