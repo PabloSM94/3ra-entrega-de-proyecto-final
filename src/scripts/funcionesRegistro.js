@@ -9,6 +9,12 @@ async function crearUsuario(datos){
     if(!datos.password){
         throw new Error('falta campo obligatorio password')
     }
+    if(!datos.nombre){
+        throw new Error('falta campo obligatorio nombre')
+    }
+    if(!datos.direccion){
+        throw new Error('falta campo obligatorio direccion')
+    }
 
     
     const prefijo = datos.prefijo

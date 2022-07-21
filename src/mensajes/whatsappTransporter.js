@@ -10,7 +10,7 @@ async function enviarWhatsapp(destinatario,mensaje) {
     try {
         const message = await client.messages.create({
             body: `${mensaje}`,
-            from: 'whatsapp:+14155238886',
+            from: `whatsapp:${process.env.TWILIO_NUMBER}`,
             to: `whatsapp:${destinatario}`
         });
     } catch (error) {
