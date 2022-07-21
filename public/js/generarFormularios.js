@@ -33,23 +33,23 @@ function generarFormRegister() {
     <form>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="usernameNEW">Email</label>
-        <input type="email" class="form-control" id="usernameNEW" placeholder="Email">
+        <label for="usernameNEW">Email*</label>
+        <input type="email" class="form-control" id="usernameNEW" placeholder="Email" required>
         </div>
         <div class="form-group col-md-6">
-        <label for="passwordNEW">Password</label>
-        <input type="password" class="form-control" id="passwordNEW" placeholder="Password">
+        <label for="passwordNEW">Password*</label>
+        <input type="password" class="form-control" id="passwordNEW" placeholder="Password" required>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="inputnombre">Nombre</label>
-        <input type="text" class="form-control" id="inputnombre" placeholder="Pablo">
+        <label for="inputnombre">Nombre*</label>
+        <input type="text" class="form-control" id="inputnombre" placeholder="Pablo" required>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="inputdireccion">Direccion</label>
-        <input type="text" class="form-control" id="inputdireccion" placeholder="9 de Julio 1540">
+        <label for="inputdireccion">Direccion*</label>
+        <input type="text" class="form-control" id="inputdireccion" placeholder="9 de Julio 1540" required>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -58,15 +58,17 @@ function generarFormRegister() {
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="inputprefijo">Prefijo</label>
-        <input type="number" class="form-control" id="inputprefijo" placeholder="+54">
+        <label for="inputprefijo">Prefijo*</label>
+        <input type="number" class="form-control" id="inputprefijo" placeholder="+54" required>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="inputtelefono">Telefono</label>
-        <input type="number" class="form-control" id="inputtelefono" placeholder="297587545">
+        <label for="inputtelefono">Telefono*</label>
+        <input type="number" class="form-control" id="inputtelefono" placeholder="297587545" required>
     </div>
     <div>
+    *Campos obligatorios
+    <br>
     <br>
     <button type="submit" id="botonSingUp" class="btn btn-primary">Registrarse</button>
     <button type="submit" id="botonLogin" class="btn btn-success">Ir a Login</button>

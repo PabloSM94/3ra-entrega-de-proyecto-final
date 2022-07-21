@@ -326,7 +326,18 @@ function generoVistaHome(usuario) {
     const botonAvatar = document.getElementById("botonAvatar")
     botonAvatar.addEventListener("click",e=>{
         e.preventDefault()
-        location.replace("/crearAvatar.html")
+        fetch('/api/logStatus')
+        .then(res => res.json())
+        .then(data => {
+            if(data.status == "ok"){
+                location.replace("/crearAvatar.html")
+            }else{
+                alert("La sesion ha expirado")
+                location.reload("/")
+            }
+        }
+        )
+        
     })
 
 }

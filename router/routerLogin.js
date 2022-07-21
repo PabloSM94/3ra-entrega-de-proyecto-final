@@ -20,6 +20,7 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
+export let result;
 //Estrategias de registro y login
 passport.use('registro', new LocalStrategy ({
     passReqToCallback: true
@@ -31,20 +32,28 @@ passport.use('registro', new LocalStrategy ({
             if(validate.length === 0){
             datosUsuario = req.body
             //console.log(datosUsuario)
-            await crearUsuario(datosUsuario)
-            return done(null,username)
+            try {
+                await crearUsuario(datosUsuario)
+                return done(null,username)
+            } catch (error) {
+                result = {msg: `${error}`} 
+                return done(null,false)
+            }
+            
 
             }else{
+                result = {msg: "Registro no completado, ya existe usuario en base de datos"} 
                 return done(null,false)
             }
             
         }
         catch(error){
-            return done("error")
+            result = {msg: "Registro fallido, no se pudo realizar comprobacion/guardado en base de datos"} 
+            done(null,false)
         }
 }))
 
-export let result;
+
 passport.use('login', new LocalStrategy ({passReqToCallback: true}, async (req,username,password,done)=>{
     try{
         const usuario = {username: username , password: password}
@@ -63,7 +72,7 @@ passport.use('login', new LocalStrategy ({passReqToCallback: true}, async (req,u
 //Comprobacion de login
 
 const middleware = {
-    estaLogeado: function(req,res,next){
+    estaLogeado: async function(req,res,next){
         //console.log(req.session.name)
         if(req.isAuthenticated()){
             //req.isAuthenticated() will return true if user is logged in
@@ -87,16 +96,18 @@ const storage = multer.diskStorage({
 })
 const upload = multer ({ storage: storage})
 
-routerLog.post('/saveAvatar',upload.single('avatar'),async (req,res,next)=>{
+routerLog.post('/saveAvatar',upload.single('avatar'),middleware.estaLogeado,async (req,res,next)=>{
     const file = req.file
     if(!file){
         const error = new Error("Subir un archivo")
         error.httpStatusCode = 400
-        return next(error)
+        res.json(`${error}`)
+    }else{
+        await actualizarAvatar(req.session.passport.user.username,`/avatar/${file.filename}`)
+        //update ruta de imagen a la nueva /avatar/file.filename
+        res.redirect("/")
     }
-    await actualizarAvatar(req.session.passport.user.username,`/avatar/${file.filename}`)
-    //update ruta de imagen a la nueva /avatar/file.filename
-    res.redirect("/")
+    
 })
 
 //Register

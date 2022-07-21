@@ -14,7 +14,7 @@ export const controladorSuccesRegister = async function (req, res) {
     res.json({ status: "ok", name: `${req.session.passport.user}`, usuario: usuario });
 };
 export const controladorFailRegister = (req, res) => {
-    res.json({ status: "error", msg: `Registro fallido` });
+    res.json({ status: "error", msg: `Registro fallido ${result.msg}` });
 };
 export const controladorSuccessLogin = async function (req, res) {
     //console.log(req.session.passport)

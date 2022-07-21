@@ -19,7 +19,7 @@
     <main id="principalMain">
         <h1>Actualizar foto de perfil</h1>
         <form class="form-group bg-dark" action="/api/saveAvatar" enctype="multipart/form-data" method="POST">
-            <input class="form-control" type="file" name="avatar">
+            <input class="form-control" type="file" required name="avatar">
             <input class="form-control" id="botonSubir" type="submit" value="Upload image">
         </form>
     </main>
