@@ -1,11 +1,11 @@
 {
   "type": "module",
-  "name": "2da-entrega-proyectofinal",
+  "name": "3ra-entrega-proyectofinal",
   "version": "1.0.0",
-  "description": "Confeccion de segunda entrega de proyecto final",
+  "description": "Confeccion de tercera entrega de proyecto final",
   "main": "main.js",
   "scripts": {
-    "start": "set VARENT=mongo&& node main.js",
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pablo Mari",
