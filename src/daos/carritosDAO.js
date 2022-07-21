@@ -1,6 +1,6 @@
 import 'dotenv/config'
 let contenedorCarrito;
-console.log(process.env.VARENT)
+
 switch (process.env.VARENT){
     case 'mem':
         const {default: CarritoDAOMemoria} = await import ('./carritos/carritosDAOMemoria.js')
@@ -20,5 +20,5 @@ switch (process.env.VARENT){
         contenedorCarrito = new CarritosDAOFirebase()
     break
 }
-console.log(contenedorCarrito)
+
 export default contenedorCarrito

@@ -1,20 +1,22 @@
 import express from 'express'
-import {routerC} from './router/routerCarrito.js'
-import {routerP} from './router/routerProductos.js'
-import {routerLog} from './router/routerLogin.js'
-import {routerPedidos} from './router/routerPedidos.js'
+import { routerC } from './router/routerCarrito.js'
+import { routerP } from './router/routerProductos.js'
+import { routerLog } from './router/routerLogin.js'
+import { routerPedidos } from './router/routerPedidos.js'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import 'dotenv/config'
-// import multer from 'multer'
+import cluster from 'cluster'
+import os from 'os'
+
 
 const app = express()
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
-
+const numCPUs = os.cpus().length
 
 //Extension para que Express reconozca los body
-app.use(express.urlencoded({extended: true})) //Formularios
+app.use(express.urlencoded({ extended: true })) //Formularios
 app.use(express.json()) //JSON
 
 
@@ -28,9 +30,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     rolling: true,
-    cookie:{
+    cookie: {
         maxAge: 100000,
-        
+
     }
 }))
 
@@ -42,9 +44,36 @@ app.use('/api', routerLog)
 app.use('/api', routerPedidos)
 
 const PORT = process.env.PORT || 8080
-const server = app.listen(PORT, ()=>{
-    console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
-})
-server.on("error", error => console.log(`Error en servidor ${error}`)
-)
+// const server = app.listen(PORT, ()=>{
+//     console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
+// })
+// server.on("error", error => console.log(`Error en servidor ${error}`)
+// )
 
+if (process.env.MODO == "CLUSTER") {
+    console.log("servidor ... en modo CLUSTER")
+    if (cluster.isPrimary) {
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork()
+        }
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`${worker.process.pid} died`)
+        })
+    } else {
+        const server = app.listen(PORT, () => {
+            console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
+        })
+        server.on("error", error => console.log(`Error en servidor ${error}`)
+        )
+        console.log(`${process.pid} started`)
+    }
+    
+}
+else {
+    const server = app.listen(PORT, () => {
+        console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
+    })
+    server.on("error", error => console.log(`Error en servidor ${error}`)
+    )
+    console.log("servidor creado en modo FORK")
+}
