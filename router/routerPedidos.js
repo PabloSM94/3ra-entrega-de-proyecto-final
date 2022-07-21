@@ -17,7 +17,7 @@ routerPedidos.post('/finalizarPedido', async (req,res) =>{
     const asunto = `Nuevo pedido de ${pedido.usuario.username} ${pedido.nropedido}`
     enviarEmail({ email: process.env.USER_EMAIL, password: process.env.TOKEN_EMAIL }, usuario.username, asunto , `${mensaje}`)
     enviarWhatsapp(process.env.ADM_CEL, asunto)
-    enviarSMS(usuario.username.tel, asunto)
+    enviarSMS(pedido.usuario.username.tel, asunto)
     res.json(`Se genero el pedido ${pedido.nropedido} por un total de $ ${pedido.total}`)
 }
 )
