@@ -91,7 +91,7 @@ const storage = multer.diskStorage({
         cb(null, 'public/avatar')
     },
     filename: function (req,file,cb){
-        cb(null, file.fieldname + req.session.passport.user.username + '.jpg')
+        cb(null, file.fieldname + (req.session.passport.user.username || req.session.passport.user) + '.jpg')
     }
 })
 const upload = multer ({ storage: storage})
@@ -103,7 +103,7 @@ routerLog.post('/saveAvatar',upload.single('avatar'),middleware.estaLogeado,asyn
         error.httpStatusCode = 400
         res.json(`${error}`)
     }else{
-        await actualizarAvatar(req.session.passport.user.username,`/avatar/${file.filename}`)
+        await actualizarAvatar(req.session.passport.user.username || req.session.passport.user,`/avatar/${file.filename}`)
         //update ruta de imagen a la nueva /avatar/file.filename
         res.redirect("/")
     }
