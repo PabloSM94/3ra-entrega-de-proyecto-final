@@ -1,3 +1,4 @@
+import 'dotenv/config'
 let contenedorCarrito;
 
 switch (process.env.VARENT){
