@@ -5,7 +5,7 @@
   "description": "Confeccion de tercera entrega de proyecto final",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "nodemon /main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pablo Mari",
