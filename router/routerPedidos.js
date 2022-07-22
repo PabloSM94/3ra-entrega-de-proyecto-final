@@ -4,6 +4,7 @@ import enviarEmail from '../src/mensajes/mailTransporter.js'
 import {enviarWhatsapp} from '../src/mensajes/whatsappTransporter.js'
 //import { enviarSMS } from '../src/mensajes/smsTransporter.js'
 import contenedorCarrito from '../src/daos/carritosDAO.js'
+import { logger } from '../src/loggers/loggers.js'
 const { Router } = express
 const routerPedidos = Router()
 
@@ -36,8 +37,10 @@ function controladorPedidos() {
         const { carrito, idCarr, user } = await buscarCarritodeUsuario(usuario)
         if (carrito.length == 0){
             res.json("ERROR! Carrito Vacio!")
+            logger.warn(`Se intentó realizar una compra de un carrito vacio`)
         }else{
             const pedido = await guardarCarritoenBDPedidos(carrito, user)
+            logger.info(`Se generó el pedido nro ${pedido.nropedido}`)
             await eliminoProductosdeCarrito(idCarr)
             const mensaje = await generarMensaje(pedido)
             const asunto = `Nuevo pedido de ${pedido.usuario.username} ${pedido.nropedido}`

@@ -9,7 +9,7 @@ import MongoStore from 'connect-mongo'
 import 'dotenv/config'
 import cluster from 'cluster'
 import os from 'os'
-
+import { logger } from './src/loggers/loggers.js' 
 
 const app = express()
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
@@ -51,29 +51,29 @@ const PORT = process.env.PORT || 8080
 // )
 
 if (process.env.MODO == "CLUSTER") {
-    console.log("servidor ... en modo CLUSTER")
+    logger.info("servidor ... en modo CLUSTER")
     if (cluster.isPrimary) {
         for (let i = 0; i < numCPUs; i++) {
             cluster.fork()
         }
         cluster.on('exit', (worker, code, signal) => {
-            console.log(`${worker.process.pid} died`)
+            logger.info(`${worker.process.pid} died`)
         })
     } else {
         const server = app.listen(PORT, () => {
-            console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
+            logger.info(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
         })
         server.on("error", error => console.log(`Error en servidor ${error}`)
         )
-        console.log(`${process.pid} started`)
+        logger.info(`${process.pid} started`)
     }
     
 }
 else {
     const server = app.listen(PORT, () => {
-        console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
+        logger.info(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
     })
     server.on("error", error => console.log(`Error en servidor ${error}`)
     )
-    console.log("servidor creado en modo FORK")
+    logger.info("servidor creado en modo FORK")
 }
