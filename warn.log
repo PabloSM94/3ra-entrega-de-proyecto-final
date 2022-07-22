@@ -1,0 +1,3 @@
+{"level":"warn","message":"Se intentó realizar una compra de un carrito vacio"}
+{"level":"error","message":"Registro fallido: Registro no completado, ya existe usuario en base de datos"}
+{"level":"error","message":"Registro fallido: Error: falta campo obligatorio nombre"}
